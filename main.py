@@ -76,35 +76,3 @@ async def chat(request: Request, user_input: Annotated[str, Form()]):
     chat_responses.append(bot_response)
 
     return templates.TemplateResponse("home.html", {"request": request, "chat_responses": chat_responses})
-
-
-
-
-
-
-
-
-
-""" KOdun Açıklaması:
-2. FastAPI Uygulamasının Oluşturulması:
-app = FastAPI() satırı ile bir FastAPI uygulaması oluşturulur. Bu uygulama, daha sonra API endpoint'lerini ve chatbot mantığını barındıracaktır.
-3. Chat Endpoint'inin Tanımlanması:
-@app.post("/") dekoratörü ile bir POST endpoint'i tanımlanır. Bu endpoint, / adresine POST isteği gönderildiğinde çalışacak fonksiyonu belirtir. Bu fonksiyon, kullanıcının girdiği metni alacak ve chatbot'un cevabını üretecektir.
-4. Kullanıcı Girdisinin Alınması:
-async def chat(user_input: Annotated[str, Form(...)]) satırı, chat fonksiyonunu tanımlar. Bu fonksiyon, user_input adında bir parametre alır. Annotated ve Form(...) kullanımı, kullanıcının girdisinin bir form verisi olarak alınacağını ve string tipinde olacağını belirtir.
-5. Chat Log'unun Güncellenmesi:
-chat_log.append({"role": "user", "content": user_input}) satırı, kullanıcının girdisini chat_log adlı listeye ekler. Bu liste, chatbot ile kullanıcı arasındaki konuşmanın geçmişini tutar ve LLM'nin daha anlamlı cevaplar üretmesine yardımcı olur.
-6. OpenAI API'sine İstek Gönderme:
-response = client.chat.completions.create(...) satırı, OpenAI API'sine bir istek gönderir. Bu istekte:
-model="gpt-3.5-turbo": Kullanılacak LLM modeli belirtilir.
-messages=chat_log: Chatbot ile kullanıcı arasındaki konuşma geçmişi gönderilir.
-temperature=0.6: Cevapların yaratıcılık seviyesi ayarlanır. Daha yüksek değerler daha yaratıcı ancak potansiyel olarak alakasız cevaplar üretirken, daha düşük değerler daha tutarlı ancak daha az yaratıcı cevaplar üretir.
-7. Chatbot Cevabının Alınması:
-bot_response = response.choices[0].message.content satırı, OpenAI API'sinden gelen cevap içerisinden chatbot'un cevabını ayıklar.
-8. Chat Log'unun Güncellenmesi ve Cevabın Döndürülmesi:
-chat_log.append({"role": "assistant", "content": bot_response}) satırı, chatbot'un cevabını chat log'una ekler. Son olarak, return bot_response satırı ile chatbot'un cevabı fonksiyondan döndürülür ve kullanıcıya gösterilir.
- """
-""" openai=OpenAI(
-    api_key='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',
-)
- """
